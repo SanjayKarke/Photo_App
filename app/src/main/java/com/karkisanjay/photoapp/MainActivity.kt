@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -41,7 +40,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
@@ -144,28 +142,14 @@ fun MainContent() {
                         listNumber.value?.let {
                             try {
                                 items(count = it.toInt()) {
-
-                                    if (isTriangularNumber(it.absoluteValue + 1)) {
                                         Image(
-                                            painter = rememberImagePainter(data = selectedImages.first()),
+                                            painter = if (isTriangularNumber(it.absoluteValue + 1)) rememberImagePainter(data = selectedImages.first()) else rememberImagePainter(data = selectedImages.last()),
                                             contentDescription = null,
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .height(200.dp),
                                             contentScale = ContentScale.Crop
                                         )
-                                    } else {
-                                        Image(
-                                            painter = rememberImagePainter(data = selectedImages.last()),
-                                            contentDescription = null,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .height(200.dp),
-                                            contentScale = ContentScale.Crop
-                                        )
-                                    }
-
-
                                 }
                             } catch (e: Exception) {
                                 println(e)
